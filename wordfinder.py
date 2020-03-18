@@ -40,4 +40,31 @@ class WordFinder:
         return choice(self.words)
 
 
-words = WordFinder("text.txt")
+# words = WordFinder("text.txt")
+
+
+class SpecialWordFinder(WordFinder):
+    """Takes in a word document and immediately returns the count
+    of words (1 word per line).
+
+    open_file() launches on __init__ and populates words list
+
+    random() will return a random word from the text file.
+    """
+
+    def __init__(self, file):
+        "launches open_file method to populate words list"
+        super().__init__(file)
+
+    def __repr__(self):
+        return f"<SpecialWordFinder - words = {self.words}>"
+
+    def open_file(self):
+        "opens file, fills words list with each word, prints total"
+        file_opened = open(self.file, "r")  # place in init
+        self.words = [line.strip() for line in file_opened if line.strip()
+                      and not line.startswith("#")]
+        print(f"{len(self.words)} words read")
+
+
+words2 = SpecialWordFinder("text.txt")
